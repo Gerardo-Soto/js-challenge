@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/play.css">
+    <title>Play</title>
+</head>
+<body>
+    <div id="main">
+        <div id="header">
+            <h2 id="title"> <a href="../index.html">Home</a></h2>
+            <p id="played"></p>     
+        </div>
+        <div id="play">
+            <div id="video">
+                <video id="principalVideo" width="100%" controls autoplay>
+                    <!--renderCelVideo()-->
+                    <!--<source src="" type="video/mp4" />-->
+                </video>
+            </div>
+            <div id="cel">
+                <video id="celVideo" width="100%" height="100%" controls autoplay>
+                    <!--renderCelVideo()-->
+                    <!--<source src="" type="video/mp4" />-->
+                </video>
+            </div>
+        </div>
+
+        <div id="list">
+            <p>list</p>
+            <label for="videos-cel">Choose a video</label>
+            <select name="videos-cel" id="videos-cel">
+                
+            </select>
+
+            <h3>This week</h3>
+            <div id="block">
+                <form action="#" id="form-video">
+                    <!-- renderButtons()-->
+                </form>
+            </div>
+            <h3>Start</h3>
+            <div id="start">
+                <form action="#" id="form-start">
+
+                </form>
+            </div>
+        </div>
+        <div id="render">
+            <p>render? </p>
+        </div>
+    </div>
+    <script src="../js/play.js"></script>
+</body>
+</html>

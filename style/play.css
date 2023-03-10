@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+
+#main {
+    background-color: darkslateblue;
+}
+
+#header {
+    min-height: 3rem;
+    max-height: 3rem;
+    background-color: blueviolet;
+}
+
+#play {
+    display: flex;
+    justify-content: center;
+    min-height: auto;
+}
+
+#video {
+    background-color: blueviolet;
+    min-width: 75%;
+}
+
+#cel {
+    background-color: blueviolet;
+    min-width: 25%;
+
+}
+
+#list {
+    background-color: darkslateblue;
+    color: azure;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#list #videos-cel {
+    max-width: 20%;
+}
+
+#block {
+    background-color: cornflowerblue;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+#button-video {
+    margin: 10px 55px;
+
+}
+
+#buttonVideo {
+    max-width: 200px;
+    max-height: 100px;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro</title>
+    <link rel="stylesheet" href="../style/main.css">
+</head>
+<body>
+    <div class="app">
+        <div class="time">
+            <div class="value" id="time__value"></div>
+            <div class="taskName" id="time__taskName"></div>
+        </div>
+
+        <div class="tasks-container">
+            <!--Create task-->
+            <div class="form">
+                <form action="" id="form">
+                    <input type="text" id="idTask" />
+                    <input type="submit" id="buttonAdd" value="Add task" />
+                </form>
+            </div>
+
+            <!--All tasks created-->
+            <div id="tasks">
+
+            </div>
+
+        </div>
+    </div>
+    <script src="../js/pomodoro.js"></script>
+</body>
+</html>
