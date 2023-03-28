@@ -90,7 +90,7 @@ function startButtonHandler(id){
     // seconds by Pomodoro
     //time = 25 * 60;
     // time test
-    time = 8;
+    time = 25 * 60;
     currentTask = id;
 
     const taskIndex = tasks.findIndex(task => task.id === id);
