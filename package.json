@@ -1,0 +1,24 @@
+{
+  "name": "js-challenge",
+  "version": "1.0.0",
+  "description": "This project is to share my solutions created in JS to the different problems published in web pages like Leetcode.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --testMatch='**/test/**/?(*.).js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gerardo-Soto/js-challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gerardo-Soto/js-challenge/issues"
+  },
+  "homepage": "https://github.com/Gerardo-Soto/js-challenge#readme",
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "sizeof": "^1.0.0"
+  }
+}
