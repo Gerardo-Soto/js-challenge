@@ -107,7 +107,7 @@ form_data.addEventListener('submit', (event) => {
 
 window.addEventListener('beforeunload', (event) => {
     event.preventDefault();
-})
+});
 
-//module.exports = compress;
+module.exports = compress;
 //export { compress, getLengthCompressString}
