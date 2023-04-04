@@ -3,7 +3,7 @@
 const tasks = [];
 
 // timer
-let time = 0
+let time = 0;
 let timer = null;
 // 5 minutes break
 let timerBreak = null;
@@ -21,7 +21,7 @@ renderTask();
 
 // events
 form.addEventListener('submit', e => {
-    //dont send form native
+    // don't send form native
     e.preventDefault();
 
     if(idTask.value !== ''){
@@ -29,7 +29,7 @@ form.addEventListener('submit', e => {
         // clean input
         idTask.value = '';
         renderTask();
-    }
+    };
 });
 
 
@@ -40,9 +40,9 @@ function createTask(value){
         id : parseInt(Math.random() *1000),
         title : value,
         completed : false
-    }
+    };
     tasks.unshift(newTask);
-}
+};
 
 function renderTask(){
     const htmlTasks =  tasks.map(task => {
@@ -54,7 +54,7 @@ function renderTask(){
             }</div>
             <div class="title">${task.title}</div>
         </div>
-        `
+        `;
     });
 
     // render:
@@ -79,18 +79,18 @@ function renderTask(){
                 // my function start timer
                 startButtonHandler(id);
                 // change text button from "Start" to "In progress"
-                button.textContent = "In progress..";
-            }
+                button.textContent = "In progress...";
+            };
         });
     });
-}
+};
 
 
 function startButtonHandler(id){
     // seconds by Pomodoro
-    //time = 25 * 60;
-    // time test
     time = 25 * 60;
+    // time test
+    //time = 5;
     currentTask = id;
 
     const taskIndex = tasks.findIndex(task => task.id === id);
@@ -103,7 +103,7 @@ function startButtonHandler(id){
     timer = setInterval(() => {
         timeHandler(id);
     }, 1000);
-}
+};
 
 function timeHandler(id){
     time--;// -1 second
@@ -127,8 +127,8 @@ function timeHandler(id){
         renderTask();
 
         pomodoroRest();
-    }
-}
+    };
+};
 
 function renderTime(){
     const timeDiv = document.querySelector('.time .value');
@@ -136,25 +136,27 @@ function renderTime(){
     const timeSeconds = parseInt(time % 60);
 
     timeDiv.textContent = `${timeMinutes < 10 ? "0" : ""}${timeMinutes}:${timeSeconds < 10 ? "0" : ""}${timeSeconds}`;
-}
+};
 
 function completedTask(id){
     const currentTaskIndex = tasks.findIndex(task => task.id === id);
 
     tasks[currentTaskIndex].completed = true;
-}
+};
 
 function pomodoroRest(){
     const taskName = document.querySelector(".time .taskName");
     taskName.textContent = "Pomodoro break";
 
-    time = 5;
+    // pomodoro break 5 minutes
+    //   minutes * 60 seconds
+    time = 5 * 60;
 
     timerBreak = setInterval(() => {
         timerBreakHandler();
     }, 1000);
 
-}
+};
 
 function timerBreakHandler(){
     time--;// -1 second
@@ -171,5 +173,5 @@ function timerBreakHandler(){
         taskName.textContent = "Pomodoro break finished.";
 
         renderTask();
-    }
-}
+    };
+};

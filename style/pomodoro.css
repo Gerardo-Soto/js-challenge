@@ -1,13 +1,19 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
-    background-color: indigo;
+    background-color: #37306B;
+}
+
+.taskName {
+    font-size: 30px;
+    color: azure;
 }
 
 .app {
-    background-color: darkviolet;
+    background-color: #9E4784;
     width: 500px;
     margin: 0 auto;
+    margin-top: 30px;
     border: solid 1px;
     border-radius: 25px;
     padding: 20px;
@@ -16,6 +22,7 @@ body {
 .time {
     text-align: center;
     padding: 20px 0px;
+    color: azure;
 }
 
 .time #time__value {
@@ -34,20 +41,27 @@ input[type="test"] {
     width: 300px;
 }
 
+.idTask {
+    font-size: 20px;
+}
+
 button, input[type="submit"] {
     border: none;
-    background-color: darkblue;
+    background-color: #D27685;
     color: azure;
     padding: 10px;
     border-radius: 7px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 #tasks {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
     gap: 10px;
     margin-top: 10px;
+    width: 70%;
 }
 
 .task {
@@ -55,6 +69,7 @@ button, input[type="submit"] {
     gap: 10px;
     align-items: center;
     flex-direction: row-reverse;
+    color: azure;
 }
 
 .task .completed {
