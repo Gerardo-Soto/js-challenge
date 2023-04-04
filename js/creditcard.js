@@ -3,6 +3,18 @@ const inputCardUser = document.querySelector('#input-card-user');
 const inputCardNumber = document.querySelector('#input-card-number');
 const inputCardDate = document.querySelector('#input-card-date');
 const inputCardCvv = document.querySelector('#input-card-cvv');
+const showCcv = document.getElementById('showCcv');
+
+
+showCcv.addEventListener('click', function() {
+    const inputCardCvv = document.querySelector('#input-card-cvv');
+
+    if (inputCardCvv.type === 'text') {
+        inputCardCvv.type = 'password';
+    } else {
+        inputCardCvv.type = 'text';
+    };
+});
 
 // our regular expression to evaluate
 const maskCardNumber = '####-####-####-####';
@@ -140,7 +152,7 @@ function validateDate(cardDateVal){
     const dataDate = String(cardDateVal).split('/');
     const decena = parseInt(dataDate[0][0]);
     const unit = parseInt(dataDate[0][2]);
-    console.log(decena, unit);
+    //console.log(decena, unit);
     if (decena > 0 && unit > 2) {
         inputCardDate.value = "";
         cardDate = [];
@@ -174,4 +186,6 @@ function handleInputCardCvv(mask, key, cardCvv){
     } else if (key === 'Backspace') {
         cardCvv.pop();
     } else {}
-}
+};
+
+
