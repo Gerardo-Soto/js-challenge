@@ -22,42 +22,44 @@ You must write an algorithm that uses only constant extra space.
  * @return {string} sting compress 
  */
 var compress = chars => {
-
-    let compressString = [];
     
-    let count = 1;
-    let iterate = 0;
+    let compressString = []; // An empty array to store the compressed characters
+    
+    let count = 1; // A counter to track the number of consecutive equal characters
+    let iterate = 0; // An index to iterate through the input array
     
     for (let i = 0; i < chars.length; i++) { 
+        // If the current character is equal to the next one, increase the counter
         if (chars[i] === chars[i + 1]) { 
-            count++;
+            count++; 
         }
+        // If there's only one consecutive character, save it in the input array uncompressed
         else if (count === 1) { 
             chars[iterate++] = chars[i];
         }
+        // If there are more than one consecutive characters but less than 10, save the original character in the input array
         else if (count < 10) { 
-            chars[iterate++] = chars[i];
-            chars[iterate++] = "r"+`${count.toString()}`;
-            count = 1;
-        } else { 
-            const s = count.toString().split('')
-            chars[iterate++] = chars[i];
+            chars[iterate++] = chars[i]; 
+            chars[iterate++] = "r"+`${count.toString()}`; // and then add a marker "r" followed by the number of times the consecutive character repeats
+            count = 1; // Reset the counter
+        }
+        // If there are 10 or more consecutive characters, convert the counter to a string and split it into individual characters
+        else { 
+            const s = count.toString().split('');
+            chars[iterate++] = chars[i]; // Save the original character in the input array
             for (let j = 0; j < s.length; j++) { 
-                chars[iterate++] = "r"+s[j];
+                chars[iterate++] = "r"+s[j]; // Add a marker "r" followed by each of the individual characters representing the number of times the consecutive character repeats
             };
-            count = 1;
+            count = 1; // Reset the counter
         };
     };
 
     for (let index = 0; index < iterate; index++) {
-        compressString.push(chars[index]);
+        compressString.push(chars[index]); // Copy the compressed characters to the output array compressString
     };
     
-    //console.log(`abs. sol: ${compressString}`);
-    //string_compressed.value = compressString;
-    return compressString;
+    return compressString.join(''); // Return the array of compressed characters
 };
-
 
 /**
  * @param {string} stringCompressed
@@ -75,7 +77,7 @@ function stringCompressionForm() {
     
     let stringParce = your_string.split('');
     
-    console.log(`your string get and parced: ${stringParce}, typeof ${typeof(stringParce)}`);
+    //console.log(`your string get and parced: ${stringParce}, typeof ${typeof(stringParce)}`);
     
 
     const stringCompressed = compress(stringParce);
