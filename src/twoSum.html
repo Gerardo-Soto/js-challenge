@@ -2,27 +2,52 @@
 <html lang="en">
 <head>
     <link rel="shortcut icon" href="https://firebasestorage.googleapis.com/v0/b/platzivideo-gerard.appspot.com/o/profile%2FJS_Logo.png?alt=media&token=4a75cc58-2ff6-4a78-b56b-7d3eee1b04aa" type="image/x-icon">
+    <link rel="stylesheet" href="./../style/leetcodeStyle.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>twoSum JS</title>
 </head>
 <body>
-    <h3>Two sum</h3>
-        <h4>Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+    <header>
+
+        <h1>Two sum</h1>
+        <h2>Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 
             You may assume that each input would have exactly one solution, and you may not use the same element twice.
 
-            You can return the answer in any order.</h4>
-        <form action="submit" method="post">
-            <label for="numbers">List of Numbers:</label>
-            <input id="numbers" name="input-numbers" type="text">
-            <label for="target">Target:</label>
-            <input id="target" name="input-target" type="number">
-            <label for="">Answer:</label>
-            <input type="text" name="answer" id="answer">
-        </form>
-        <button onclick="twoSum()">Solution</button>
+            You can return the answer in any order.
+        </h2>
+        <a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener noreferrer">leetcode.com/problems/two-sum/</a>
+    
+    </header>
 
+    <section>
+
+        <form id="form-data">
+            <label for="numbers">List of Numbers:</label>
+            <input id="numbers" name="input-numbers" type="text" placeholder="e.i. 2,4,8,3">
+            <label for="target">Target:</label>
+            <input id="target" name="input-target" type="number" placeholder="e.i. 6">
+            <label for="">Indices:</label>
+            <input disabled type="text" name="answer" id="answer">
+            <button class="custom-btn btn-13" onclick="getData()">Solution</button>
+        </form>
+
+        <article>
+            <div class="solution">
+                <img class="img--solution" src="https://firebasestorage.googleapis.com/v0/b/platzivideo-gerard.appspot.com/o/js_challenge%2Fsol__twosum.png?alt=media&token=0350ee95-6a91-42b9-8444-2b765dae27e9" alt="solution" srcset="">
+            </div>
+        </article>
+        
+    </section>
+
+    <footer class="my-footer">
+        <p>email: gerardo.8.soto@gmail.com</p>
+        <p><a href="https://github.com/Gerardo-Soto" target="_blank" rel="noopener noreferrer">My github.com/Gerardo-Soto</a></p>
+        <p><a href="https://gerardo-soto.github.io/" target="_blank" rel="noopener noreferrer">Profile: gerardo-soto.github.io</a></p>
+    </footer>
+
+    <script src="./../js/two_sum.js"></script>
 </body>
 </html>

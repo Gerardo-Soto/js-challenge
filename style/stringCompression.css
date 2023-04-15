@@ -1,7 +1,11 @@
 body {
   background: rgb(116,141,166);
   background: radial-gradient(circle, rgba(156,180,204,1) 0%, rgba(116,141,166,1) 100%);
-  margin: 0%;  
+  margin: 0%;
+
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
 }
 
 
@@ -24,7 +28,7 @@ h1 {
   color: #333;
 }
 
-header h3 {
+header h2 {
   text-align: left;
 }
 
@@ -82,6 +86,7 @@ form {
 
 label {
   font-weight: bold;
+  font-size: larger;
 }
 
 input {
@@ -101,6 +106,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font: 20px Raleway;
+  margin: 10px;
 }
 
 button:hover {
@@ -126,8 +132,9 @@ input:disabled {
 }
 
 .img--solution {
-  max-width: 100%;
+  width: 70%;
   border-radius: 15px;
+  margin-bottom: 3rem;
 }
 
 .my-footer {
@@ -139,8 +146,12 @@ input:disabled {
   padding: 20px;
   justify-content: space-around;
   align-items: center;
-  margin-top: 80px;
   
+  
+  height: 3rem;
+  margin-top: auto;
+  
+
 }
 
 .my-footer p {
