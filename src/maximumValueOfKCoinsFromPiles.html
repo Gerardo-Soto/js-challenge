@@ -24,21 +24,21 @@
 
     <section>
         <form id="form-data">
-            <label for="your-string">Your stakes:</label>
-            <input id="your-string" name="your-string" type="text" placeholder="i.e. 1,2,3 / 4,5,6 / 7,8,9,10,11">
-            <label for="">String compressed:</label>
-            <input disabled type="text" name="string-compressed" id="string-compressed">
-            <label for="new-length">The new length of the array:</label>
-            <input disabled id="new-length" name="new-length" type="number">
-            <button class="custom-btn btn-13" onclick="stringCompressionForm()">Solution</button>
+            <label for="your-piles">Your piles:</label>
+            <input id="your-piles" name="your-piles" type="text" placeholder="i.e. 1,2,3 / 4,5,6 / 7,8,9,10,11" />
+            <label for="coins">Coins:</label>
+            <input type="number" name="coins" id="coins" />
+            <label for="maximum-total">The maximum total you can obtain is:</label>
+            <input disabled id="maximum-total" name="maximum-total" type="text" />
+            <button class="custom-btn btn-13" onclick="getData()">Solution</button>
         </form>
 
         <article>
             <div class="solution">
                 <div class="carousel">
                     <div class="buttons-container">
-                        <button class="btn custom-btn btn-13" id="solution">Solution</button>
-                        <button class="btn custom-btn btn-13" id="unit-test">Unit test</button>
+                        <button class="btn custom-btn btn-14" id="solution">Solution</button>
+                        <button class="btn custom-btn btn-14" id="unit-test">Unit test</button>
                     </div>
                     <div class="image-container" id="imgs">
 
@@ -59,6 +59,7 @@
     </footer>
 
     <script src="./../js/maximumValueOfKCoinsFromPiles.js"></script>
+    <script src="./../js/maximumValueOfKCoinsFromPilesForm.js"></script>
     <script src="./../js/carousel.js"></script>
 </body>
 </html>
