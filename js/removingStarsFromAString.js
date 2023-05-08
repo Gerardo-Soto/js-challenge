@@ -11,8 +11,8 @@ var removeStars = function(s) {
         if (s[index] == '*') {
             sol.pop();
         } else {
-            sol.push(s[index])
-        }
+            sol.push(s[index]);
+        };
     };
 
     // Convert the array to a text string and replace all commas with an empty string to get the final result without commas.
