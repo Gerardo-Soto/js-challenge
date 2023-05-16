@@ -1,10 +1,12 @@
 /**
  * Definition for singly-linked list.
 **/
-function ListNode(val, next) {
-    this.val = (val===undefined ? 0 : val)
-    this.next = (next===undefined ? null : next)
-}
+class ListNode{
+    constructor(val, next) {
+        this.val = (val===undefined ? 0 : val)
+        this.next = (next===undefined ? null : next)
+    };
+};
 
 /**
  * Definition to print nodes from ListNode
@@ -24,7 +26,7 @@ function printListNode(head) {
  */
 var swapNodes = function(head, k) {
     // First case. the head is empty:
-    if (!head) {
+    if (!head || k == 0) {
         return null;
     };
 
@@ -33,16 +35,16 @@ var swapNodes = function(head, k) {
     let left = head, right = head;
 
     // Getting the first index left:
-    for (let indexLeft = 1; indexLeft < k; indexLeft++) {
-        left = head.next;
+    for (let indexLeft = 0; indexLeft <= k; indexLeft++) {
+        left = left.next;
     };
 
-
+    console.log(`first val::: ${left.val}`);
 
     let current = left;// this variable has n nodes from K-th to end of the ListNode
     // Getting the second index right
     while(current.next){
-        current = current.next
+        current = current.next;
         right = right.next;
     };
 
@@ -61,22 +63,19 @@ let node2 = new ListNode(2);
 let node3 = new ListNode(3);
 let node4 = new ListNode(4);
 let node5 = new ListNode(5);
-let node6 = new ListNode(6);
-
 // Linking the nodes:
 node1.next = node2;
 node2.next = node3;
 node3.next = node4;
 node4.next = node5;
-node5.next = node6;
 
 // set initial node (head)
 let head = node1;
 
 // Change order
 // Call function swapNodes with the ListNode and k
-swapNodes(head, 1);
 swapNodes(head, 2);
+//swapNodes(head, 2);
 
 // Print the actual ListNode
 console.log( printListNode(head) );
