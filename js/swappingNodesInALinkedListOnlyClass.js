@@ -3,8 +3,8 @@
 **/
 class ListNode{
     constructor(val, next) {
-        this.val = (val===undefined ? 0 : val)
-        this.next = (next===undefined ? null : next)
+        this.val = (val===undefined ? 0 : val);
+        this.next = (next===undefined ? null : next);
     };
     
     /**
@@ -17,10 +17,9 @@ class ListNode{
             current = current.next;
         };
     };
-    
+
 
     /**
-     * @param {ListNode} head
      * @param {number} k
      * @return {ListNode}
      */
@@ -53,7 +52,7 @@ class ListNode{
         right.val = temporalValue;
 
         return head;
-    }
+    };
 };
 
 
