@@ -5,5 +5,7 @@ class RainForest{
 }
 
 let congo = new RainForest();
+console.log(RainForest.minimumRailFall);
 RainForest.minimumRailFall = 80;
 console.log(congo.minimumRailFall);
+console.log(RainForest.minimumRailFall);
