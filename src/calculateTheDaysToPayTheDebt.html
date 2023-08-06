@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="https://firebasestorage.googleapis.com/v0/b/platzivideo-gerard.appspot.com/o/profile%2FJS_Logo.png?alt=media&token=4a75cc58-2ff6-4a78-b56b-7d3eee1b04aa" type="image/x-icon">
+    <link rel="stylesheet" href="./../style/leetcodeStyle.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weeks to pay | JS</title>
+</head>
+<body>
+    <header>
+        <h1>Calculate the weeks to pay the debt</h1>
+        <h2>You can borrow the desired amount from the bank, but the first week you have to pay $1, the second week you have to pay $2, the third week you have to pay $4, the fourth week you have to pay $8, and so on until you cover your debt.
+
+            Return the number of weeks it will take you to pay the debt from the first weeks of payment.
+            
+        </h2>
+        <!--<a href="https://leetcode.com/problems/boats-to-save-people/description/" target="_blank" rel="noopener noreferrer">leetcode.com/problems/boats-to-save-people</a>-->
+    
+    </header>
+
+    <section>
+        <form id="form-debt-data">
+            <label for="your-debt">Your debt:</label>
+            <input id="your-debt" class="input-small" name="your-debt" type="text" placeholder="e.i: 152   or: 53, 85, 420">
+            <label for="days-to-pay-the-debt">Weeks to pay the debt:</label>
+            <input disabled type="text" class="input-small" name="days-to-pay-the-debt" id="days-to-pay-the-debt">
+            <button class="custom-btn btn-13" onclick="getFormDaysToPayTheDebtData()">Solution</button>
+        </form>
+        
+        <article>
+            <div class="solution">
+                <div class="carousel">
+                    <div class="buttons-container">
+                        <button class="btn custom-btn btn-14" id="solution">Solution</button>
+                        <button class="btn custom-btn btn-14" id="unit-test">Unit test</button>
+                    </div>
+                    <div class="image-container" id="imgs">
+
+                        <img class="solution--carousel" id="solution--img" src="https://firebasestorage.googleapis.com/v0/b/platzivideo-gerard.appspot.com/o/js_challenge%2FcalculateWeeksToPayDebts.png?alt=media&token=29c5a2d4-c7e4-4092-9c8d-6c59a031318a" alt="solution-code" />
+                        
+                    </div>
+                </div>
+            </div>
+
+        </article>
+    </section>
+
+    <footer class="my-footer">
+        <p>email: gerardo.8.soto@gmail.com</p>
+        <p><a href="https://github.com/Gerardo-Soto" target="_blank" rel="noopener noreferrer">My github.com/Gerardo-Soto</a></p>
+        <p><a href="https://gerardo-soto.github.io/" target="_blank" rel="noopener noreferrer">Profile: gerardo-soto.github.io</a></p>
+    </footer>
+
+    <script src="../js/calculateDaysToPayDebts.js"></script>
+    <script src="../js/calculateDaysToPayDebsCarousel.js"></script>
+</body>
+</html>

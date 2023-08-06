@@ -11,7 +11,7 @@ let removeDuplicate = function (array) {
 }
 
 let removeDuplicateSet = function (array) {
-    return [...new Set(array)];// utilizamos el operador de propagación ... para convertir el conjunto nuevamente en un array.
+    return [...new Set(array)];// we used propagation operator (...) to convert this set "array" to a new Set again
 }
 
 console.log(removeDuplicate(array));

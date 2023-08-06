@@ -114,7 +114,7 @@ function getFormBoatsToSavePeopleData(params) {
         
     };
 
-    boatsUsed.value = ''
+    boatsUsed.value = '';
     boatsUsed.value = boatsUsedTextArea;
 };
 
