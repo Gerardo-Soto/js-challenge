@@ -13,7 +13,7 @@ a[b] = 123;
 a[c] = 456;
 
 console.log(toString(b));
-
+k
 console.log(a[b]);
 
 const zero = new Number(0);
