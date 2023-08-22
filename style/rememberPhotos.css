@@ -1,0 +1,198 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+button:active {
+    outline: none;
+    border-color: rgb(0, 255, 255, 0.0);
+}
+
+.static-div {
+    height: 100vh; /* Altura del 100% del viewport */
+    background-color: #000000;
+    background-image: url('/home/gerard/Downloads/marcos/ready_Horizon.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Otros estilos para el div estático */
+}
+
+.inner-div-blur {
+    width: 81.4%;
+    height: 75.3%;
+    background-color: rgb(0, 0, 0); /* Ejemplo de color de fondo semitransparente */
+    /*background-image: url('/home/gerard/Downloads/HollowKnight_Lego_Ideas.jpg');*/
+    background-image: url('/home/gerard/Pictures/save/sony_photos/20190815_194002.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    filter: blur(4px);
+    top: 12.2%; /* Ajustar según necesites */
+    left: 9.5%; /* Ajustar según necesites */
+}
+
+.inner-div {
+    width: 81.4%;
+    height: 75.0%;
+    background-color: rgb(0, 0, 0, 0); /* Ejemplo de color de fondo semitransparente */
+    /*background-image: url('/home/gerard/Downloads/HollowKnight_Lego_Ideas.jpg');*/
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 12.4%; /* Ajustar según necesites */
+    left: 9.5%; /* Ajustar según necesites */
+    border-radius: 20%;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.prev-button {
+    width: 8.7%;
+    height: 75%;
+    padding: 10px 20px;
+    background-color: rgba(0, 255, 42, 0.0);
+    color: #000;
+    border: none;
+    cursor: pointer;
+}
+
+.center-button {
+    width: 81.4%;
+    height: 75%;
+    padding: 20px 40px;
+    background-color: rgb(0, 255, 255, 0.0);
+    color: #000;
+    border: none;
+    cursor: pointer;
+}
+
+.next-button {
+    width: 8.7%;
+    height: 75%;
+    padding: 10px 20px;
+    background-color: rgba(255, 0, 55, 0.0);
+    color: #000;
+    border: none;
+    cursor: pointer;
+}
+
+.center-botton-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.pause-button {
+    width: 81.4%;
+    height: 10%;
+    padding: 20px 40px;
+    background-color: rgba(43, 81, 248, 0.3);
+    color: #000;
+    border: none;
+    cursor: pointer;
+}
+
+.dynamic-div {
+    height: 10rem; /* Altura de 5 rem */
+    background-color: #3498db;
+    /* Otros estilos para el div dinámico */
+}
+
+
+
+
+
+button {
+    margin: 10px;
+  }
+  
+.custom-btn {
+width: 110px;
+height: 40px;
+margin: 10px;
+color: #fff;
+border-radius: 10px;
+padding: 10px 25px;
+font-family: 'Lato', sans-serif;
+font-weight: 500;
+background: transparent;
+cursor: pointer;
+transition: all 0.3s ease;
+position: relative;
+display: inline-block;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(0,0,0,.1),
+    4px 4px 5px 0px rgba(0,0,0,.1);
+outline: none;
+}
+  
+/* 11 */
+.btn-11 {
+    border: none;
+    background: rgb(251,33,117);
+      background: linear-gradient(0deg, rgba(251,33,117,1) 0%, rgba(234,76,137,1) 100%);
+      color: #fff;
+      overflow: hidden;
+  }
+  .btn-11:hover {
+      text-decoration: none;
+      color: #fff;
+  }
+  .btn-11:before {
+      position: absolute;
+      content: '';
+      display: inline-block;
+      top: -180px;
+      left: 0;
+      width: 30px;
+      height: 100%;
+      background-color: #fff;
+      animation: shiny-btn1 3s ease-in-out infinite;
+  }
+  .btn-11:hover{
+    opacity: .7;
+  }
+  .btn-11:active{
+    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
+                -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+      inset -4px -4px 6px 0 rgba(255,255,255,.2),
+      inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+  }
+  
+  
+  @-webkit-keyframes shiny-btn1 {
+      0% { -webkit-transform: scale(0) rotate(45deg); opacity: 0; }
+      80% { -webkit-transform: scale(0) rotate(45deg); opacity: 0.5; }
+      81% { -webkit-transform: scale(4) rotate(45deg); opacity: 1; }
+      100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
+  }
+  
+.test-source {
+    padding: 0px 25px;
+}
+
+.click {
+    cursor: pointer;
+}
+
+.audio-track{
+    margin: 0px 100px;
+    
+}
+
+
+.placeholder-minutes {
+    width: 80px;
+}
