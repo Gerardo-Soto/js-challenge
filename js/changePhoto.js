@@ -21,7 +21,8 @@ let currentPictureIndex = 0;
 var interval;
 
 // timer
-let intervalSeconds = 10 * 1000;
+// let intervalSeconds = 10 * 1000;// test
+let intervalSeconds = 60 * 1000;// prod
 changeImage();
 
 function changeInterval(seconds) {
@@ -29,7 +30,20 @@ function changeInterval(seconds) {
     console.log(`new interval: ${intervalSeconds}`);
 
     changeImage();
-}
+};
+
+
+function changeMinutesInterval() {
+    const changeMinutes = Number.parseInt(document.getElementById('placeholder-minutes').value);
+
+    console.log(changeMinutes);
+    if (Number.isInteger(changeMinutes)) {
+        console.log('is a number');
+        changeInterval(changeMinutes);
+    } else {
+        alert('set a number');
+    }
+};
 
 function changeImage() {
     // Clears the previous setInterval timer
@@ -51,11 +65,11 @@ function changeImage() {
 
         currentPictureIndex = (currentPictureIndex + 1) % pictures.length;
         console.log('local');
-    }
+    };
 
     
     interval = setInterval(changeImage, intervalSeconds);
-}
+};
 
 //setInterval(changeImage, intervalSeconds );
 
@@ -89,7 +103,7 @@ function prevPicture() {
         innerDiv.style.backgroundImage = `url(${pictures[currentPictureIndex]})`;
         innerDivBlur.style.backgroundImage = `url(${pictures[currentPictureIndex]})`;
     
-    }
+    };
 
 };
 
@@ -115,6 +129,6 @@ function nextPicture() {
         innerDiv.style.backgroundImage = `url(${pictures[currentPictureIndex]})`;
         innerDivBlur.style.backgroundImage = `url(${pictures[currentPictureIndex]})`;
     
-    }
+    };
 };
 
