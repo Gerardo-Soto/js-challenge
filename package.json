@@ -4,8 +4,10 @@
   "description": "This project is to share my solutions created in JS to the different problems published in web pages like Leetcode.",
   "main": "index.js",
   "scripts": {
-    "test": "jest --testMatch='**/test/**/?(*.).js",
-    "testSum": "jest ./test/continuousSubarraySum.test.js"
+    "test": "jest",
+    "testName": "jest --testMatch='**/test/**/?(*.).js",
+    "testSum": "jest ./test/continuousSubarraySum.test.js",
+    "t": "jest ./test/"
   },
   "repository": {
     "type": "git",
