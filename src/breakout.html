@@ -1,0 +1,639 @@
+<title>BO</title>
+<style>
+    body{
+        background-color: midnightblue;
+    }
+    .text{
+        color: azure;
+    }
+    .principal{
+        align-items: center;
+    }
+    canvas {
+        border: 4px solid #DDD;
+        border-bottom: transparent;
+        background: #22012c;
+        margin: 0 auto;
+        display: block;
+    }
+</style>
+<body>
+<h3 class="text">BreakOut</h3>    
+<canvas></canvas>
+<h2 class="text principal" id="hitTheBall">Hit the ball</h2>
+<h2 class="text" id="hits"></h2>
+<h2 id="shots" class="text">3 continue hits ===> 1 shot     [X]    You have: 10</h2>
+<h2 id="exploits" class="text">5 continue hits ===> 1 exploit  [D]    You have: 10</h2>
+<h2 id="points" class="text">Points: 0</h2>
+<img hidden id="sprite" src="./sprite.png" alt="Sprite BreakOut" />
+<img hidden id="bricks" src="./bricks.png" alt="Sprite BreakOut" />
+
+<script>
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const $sprite = document.querySelector('#sprite');
+    const $bricks = document.querySelector('#bricks');
+
+    const $points = document.querySelector('#points');
+
+    const $hit = document.querySelector('#hitTheBall');
+    const $hits = document.querySelector('#hits');
+    const $shotsQS = document.querySelector('#shots');
+    const $exploitsQS = document.querySelector('#exploits');
+    let countHits = 0;
+
+    canvas.width = 800;
+    canvas.height = 400;
+
+    // ball variable
+    let ballRadius = 2;
+    let x = canvas.width/4;
+    let y = canvas.height*0.9;
+    
+    // speedball
+    let dx = 2;
+    let dy = -2;
+    let dxPause = 0;
+    let dyPause = 0;
+    let inPause = false;
+    let inPauseBoucle = false;
+    const MAX_SPEED = 3;
+
+    // powers
+    let shots = 10;
+    let pressedShot = false;
+    let shotRatio = 1;
+
+    let shotSpeedY = 5;
+    let shotX = 0;
+    let shotY = 0;
+    let fire = false;
+
+    let exploits = 10;
+    let pressedExploit = false;
+    
+    let points = 0;
+
+    function drawBall() {
+        ctx.beginPath();
+        ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+        ctx.fillStyle = '#CCC';
+        ctx.fill();
+        ctx.closePath();
+    };
+
+    function drawShot(){
+        ctx.beginPath();
+        ctx.arc(shotX, shotY, shotRatio, 0, Math.PI*2);
+        ctx.fillStyle = '#C00';
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    function drawBlast() {
+        ctx.beginPath()
+        ctx.arc(x, y, 150, 0, Math.PI*2)
+        //ctx.fillStyle = '#cc3737';
+        ctx.fillStyle = '#00ff00';
+        ctx.fill();
+        ctx.closePath();
+        
+    }
+
+    function drawShot() {
+        ctx.beginPath()
+        
+        /*ctx.fillRect(
+            shotX,
+            shotY,
+            shotX,
+            shotY,
+        );*/
+        ctx.arc(shotX, shotY, 5, 0, Math.PI*2)
+        ctx.fillStyle = '#cc3737';
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    function shotMovement(){
+        shotRatio = 3;
+        if (fire){
+            shotY -= shotSpeedY;
+        } else {
+            shotY = paddleY;
+            shotX = paddleX + (paddleWidth/2);
+        }
+    }
+
+    function ballMovement() {
+        x += dx;
+        y += dy;
+    }
+
+    // Paddle variables
+    const paddleHeight = 10;
+    const paddleWidth = 60;
+    const PADDLE_MAX_SPEED = 5;
+    let paddleX = ((canvas.width - paddleWidth) / 2);
+    let paddleY = (canvas.height - paddleHeight - 10);
+
+
+
+    function drawPaddle() {
+        ctx.fillStyle = '#09f';
+        ctx.fillRect(
+            paddleX,
+            paddleY,
+            paddleWidth,
+            paddleHeight,
+        );
+
+        ctx.drawImage(
+            $sprite,
+            // coords
+            29,
+            174,
+            50,
+            paddleHeight,
+            //position
+            paddleX,
+            paddleY,
+            paddleWidth,
+            paddleHeight,
+        )
+    }
+
+
+    function paddleMovement() {
+        if (inPause){
+            return;
+        } else if (rightPressed && leftPressed){
+            return;
+        } else if (upPressed && downPressed){
+            return;
+        } else if (rightPressed && paddleX + paddleWidth < canvas.width) {
+            paddleX += paddleSpeed;
+        } else if (leftPressed && paddleX > 0){
+            paddleX -= paddleSpeed;
+        } else if (upPressed && paddleY > (canvas.height / 2) ) {
+            paddleY -= paddleSpeed;
+        } else if (downPressed && paddleY < canvas.height - 15 ) {
+            paddleY += paddleSpeed;
+        }
+    }
+
+
+    const brickRowCount = 6;
+    const brickColumnCount = 13;
+    const brickWidth = 30;
+    const brickHeight =14;
+    const brickPadding = 30;
+    const brickOffsetTop = 30;
+    const brickOffsetLeft = 30;
+    const bricks = [];
+    const BRICK_STATUS = {
+        ACTIVE: 1,
+        DESTROYED: 0
+    }
+    let TOTAL_BRICKS = brickRowCount * brickColumnCount;
+
+    // Create bricks data
+    for (let column = 0; column < brickColumnCount; column++) {
+        bricks[column] = [];
+        for (let row = 0; row < brickRowCount; row++) {
+            // calculate position of every brick on the screen
+            const brickX = (column * (brickWidth + brickPadding)) + brickOffsetLeft;
+            const brickY = (row * (brickHeight + brickPadding)) + brickOffsetTop;
+            // assign a random color
+            const randomBrick = Math.floor(Math.random() * 8);
+            // save info
+            bricks[column][row] = {
+                x: brickX,
+                y: brickY,
+                status: BRICK_STATUS.ACTIVE,
+                color: randomBrick,
+            } 
+        }
+    }
+
+    function drawBricks() {
+        for (let column = 0; column < brickColumnCount; column++) {
+            for (let row = 0; row < brickRowCount; row++) {
+                const currentBrick = bricks[column][row];
+                if (currentBrick.status === BRICK_STATUS.DESTROYED) continue;
+
+
+                const clipN = currentBrick.color * 32;
+                ctx.drawImage(
+                    $bricks,
+                    clipN,
+                    0,
+                    31,
+                    14,
+                    currentBrick.x,
+                    currentBrick.y,
+                    brickWidth,
+                    brickHeight,
+                )
+            }
+        }
+    }
+
+    function drawScore() {
+        
+    }
+    
+    function collisionDetection() {
+        //console.log(`dx: ${dx}   dy: ${dy}`);
+        // collision with the walls
+        if (x < 1 || x > canvas.width) {
+            dx *= -1; 
+            /*if (dx< 0) {
+                dx -= 1;
+            } else {
+                dx += 1;
+            }*/
+            if (Math.abs(dx) < MAX_SPEED && Math.abs(dy) < MAX_SPEED) {
+                dx *= 1.02;
+                dy *= 1.02;
+            }
+            points -= 5;
+            $points.textContent = 'Points: ' + points;
+        }
+
+        // collision with the ceiling 
+        if (y < 1) {
+            dy *= -1;
+            /*if (dy< 0) {
+                dy -= 1;
+            } else {
+                dy += 1;
+            }*/
+            if (Math.abs(dy) < MAX_SPEED && Math.abs(dx) < MAX_SPEED) {
+                dx *= 1.02;
+                dy *= 1.02;
+            }
+            points -= 5;
+            $points.textContent = 'Points: ' + points;
+        }
+
+        // collision with the paddle
+        if (dy > 0){
+            //console.log(`down ball, my paddle up level Y: ${paddleY}, y: ${y}`);
+            if (y >= paddleY && y <= (paddleY + paddleHeight) ) {
+                if (x >= paddleX && x <= (paddleX + paddleWidth)) {
+                    shots = shots + Math.floor(countHits / 3);
+                    exploits = exploits + Math.floor(countHits / 5);
+                    points += (countHits * countHits);
+                    countHits = 0;
+                    hits.textContent = 'Continuous hits: '+ countHits;
+                    $shotsQS.textContent = '3 continue hits ===> 1 shot [X] You have: ' + shots;
+                    $exploitsQS.textContent = '5 continue hits ===> 1 exploit [D] You have: ' + exploits;
+                    
+
+                    dy *= -1
+                    // check a perfect center hit , width> 60,  20, 20, 20
+                    // perfect hit = less speed, more control
+                    if (x >= (paddleX + 20) && x <= (paddleX + paddleWidth - 20) ){
+                        console.log(`PERFECT hit`);
+                        $hit.textContent = 'PERFECT hit!'
+                        points += 100;
+                        // less dy = less speed
+                        if (Math.abs(dx) > 5){
+                            dy *= 0.95;
+                        } else {
+                            dy *= 0.90;
+                        }
+                        // less dx = more control
+                        dx *= 0.9;
+
+                        // perfect hit = more speed paddle
+                        if (paddleSpeed < PADDLE_MAX_SPEED) {
+                            paddleSpeed *= 1.4;
+                        }
+                    } else {
+                        console.log(`nice hit`);
+                        $hit.textContent = 'Nice hit.';
+                        points += 33;
+                        //2nd option, more simple
+                        // less dy = more speed ball
+                        if (Math.abs(dx) > 5){
+                            dy *= 1.15;
+                        } else {
+                            dy *= 0.95;
+                        }
+                        // more dx = less control
+                        dx *= 1.15;
+
+
+                        // 1st option
+                        // hit left     <--                       and ball go to left --> +x   
+                        /*
+                        if (x >= paddleX && x < (paddleY + 20) && x >= 0) {
+                            if (Math.abs(dx) < MAX_SPEED && Math.abs(dy) < MAX_SPEED) {
+                                dx *= -0.5;
+                                dy *= 1.5;
+                            } else {
+                                dx *= -1;
+                                dy *= 1.5;
+                            }
+                            
+                        }
+
+                        // hit left   <--                         and ball go to right  <--- -x    
+                        else if (x >= paddleX && x < (paddleY + 20) && x < 0) {
+                            if (Math.abs(dx) < MAX_SPEED && Math.abs(dy) < MAX_SPEED) {
+                                dx *= 1.5;
+                                dy *= 0.8;
+                            } else {
+                                dx *= 1;
+                                dy *= 0.8;
+                            }
+                        }
+
+                        // hit right   -->                         and ball go to left --> +x   
+                        if (x >= (paddleX + 40) && x < (paddleY + 60) && x < 0) {
+                            if (Math.abs(dx) < MAX_SPEED && Math.abs(dy) < MAX_SPEED) {
+                                dx *= 1.5;
+                                dy *= 0.5;
+                            } else {
+                                dx *= 1;
+                                dy *= 0.85;
+                            }
+                        }
+                        
+                        // hit right                            and ball go to right <-- -x   
+                        if (x >= (paddleX + 40) && x < (paddleY + 60) && x >= 0) {
+                            if (Math.abs(dx) < MAX_SPEED && Math.abs(dy) < MAX_SPEED) {
+                                dx *= -1.5;
+                                dy *= 0.5;
+                            } else {
+                                dx *= -0.5;
+                                dy *= 0.5;
+                            }
+                        }
+                        */
+
+                        // bad hit = bit speed to paddle
+                        if (paddleSpeed < PADDLE_MAX_SPEED) {
+                            paddleSpeed *= 1.3;
+                        }
+                    }
+                    //console.log(`Speed   dx: ${dx}, dy: ${dy}`);
+                    $points.textContent = 'Points: ' + points;
+                }
+            }
+        }
+
+        // bricks collision
+        for (let column = 0; column < brickColumnCount; column++) {
+            for (let row = 0; row < brickRowCount; row++) {
+                const currentBrick = bricks[column][row];
+
+                if(currentBrick.status === BRICK_STATUS.DESTROYED) continue;
+
+                // exploit calculate
+                if (pressedExploit && exploits > 0) {
+                    let currentBrickCenterX = ((currentBrick.x + (brickWidth / 2)));
+                    let currentBrickCenterY = ((currentBrick.y + (brickHeight / 2)));
+
+                    //ballRadius == 100
+                    if (((x - 100) < currentBrickCenterX) && ((x + 100) > currentBrickCenterX) && ((y - 100) < currentBrickCenterY) && ((y + 100) > currentBrickCenterY)) {
+                        console.log('true');
+                        const safe = Math.floor(Math.random() * 200);
+
+                        if (Math.abs((currentBrickCenterX + currentBrickCenterY) - (x + y)) < safe){
+
+                            currentBrick.status = BRICK_STATUS.DESTROYED;
+                            TOTAL_BRICKS -= 1;
+                            points += Math.floor((Math.abs((currentBrickCenterX + currentBrickCenterY) - (x + y))) / 10);
+                            $points.textContent = 'Points: ' + points;
+                        }
+                    }
+                }
+
+                const isBallSameXAsBrick = x > currentBrick.x && x < currentBrick.x + brickWidth;
+                const isBallSameYAsBrick = y > currentBrick.y && y < currentBrick.y + brickHeight;
+
+                // there is a collision
+                if (isBallSameXAsBrick && isBallSameYAsBrick) {
+                    // what kind of collision, horizontal or vertical
+                    if (Math.floor( x) ==  currentBrick.x || Math.floor( x) == (currentBrick.x + brickWidth)) {
+                        console.log('collision vertical');
+                        console.log(`x: ${Math.floor(x)} , currentBrick = ${currentBrick.x}`);
+                        // vertical collision
+                        dx = -dx; 
+                    } else {
+                        console.log('collision horizontal');
+                        console.log(`x: ${Math.floor(x)} , currentBrick = ${currentBrick.x}`);
+                        // horizontal collision
+                        dy = -dy;
+                    }
+                    // more speed
+                    if ((Math.abs(dx) < MAX_SPEED) && (Math.abs(dy) < MAX_SPEED)) {
+                        dx *= 1.02;
+                        dy *= 1.02;
+                    }
+                    
+                    currentBrick.status = BRICK_STATUS.DESTROYED;    
+                    countHits += 1;
+                    hits.textContent = 'Continuous hits: ' + countHits;
+
+                    TOTAL_BRICKS -= 1;
+                }
+                
+            }
+            
+            if (TOTAL_BRICKS == 0) {
+                $hit.textContent = 'You WON! \\o/';
+                dx = 0;
+                dy = 0;
+                x= canvas.width / 2;
+                y= canvas.height / 2;
+            }
+        }
+        ballRadius = 2;
+        pressedExploit = false;
+
+        // game over
+        if( y > canvas.height){
+            console.log('Game Over. o7');
+            $hit.textContent = 'Game Over. o7';
+            //console.log(`${y}, ${paddleY}, ${paddleY + paddleWidth}, x:${x}, ${paddleX}`);
+            dy *= -1;
+            //test:
+            //
+            dy = 0;
+            dx = 0;
+            //document.location.reload();
+            //console.log(`dx: ${dx}, dy: ${dy}`);
+        }
+
+        // shot collision celling
+        if (fire) {
+            if (shotY < 1) {
+                shotY = paddleY
+                fire = false;
+                points -= 100
+                $points.textContent = 'Points: '+points;
+            }
+        }
+
+        // shot collision with bricks
+        for (let column = 0; column < brickColumnCount; column++) {
+            for (let row = 0; row < brickRowCount; row++) {
+                const currentBrick = bricks[column][row];
+
+                if(currentBrick.status === BRICK_STATUS.DESTROYED) continue;
+
+                // exploit calculate
+                if (shotY > currentBrick.y  && shotY < (currentBrick.y + brickHeight) && shotX > currentBrick.x && shotX < (currentBrick.x + brickWidth)) {
+                    currentBrick.status = BRICK_STATUS.DESTROYED;
+                    TOTAL_BRICKS -= 1;
+                    //
+                    shotY = paddleY;
+                    fire = false;
+                    points += 30; 
+                }                
+            }
+        }
+    }
+
+    function cleanCanvas() {
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+    }
+
+    let leftPressed = false;
+    let rightPressed = false;
+    let upPressed = false;
+    let downPressed = false;
+    let paddleSpeed = 5;
+
+    function initEvent() {
+        document.addEventListener('keydown', keyDownHandler);
+        document.addEventListener('keyup', keyUpHandler);
+
+        function keyDownHandler(event) {
+            const { key } = event;
+            if (key === 'Right' || key === 'ArrowRight') {
+                rightPressed = true;
+            } else if (key === 'Left' || key === 'ArrowLeft'){
+                leftPressed = true;
+            } else if (key === 'Down' || key === 'ArrowDown'){
+                downPressed = true;
+            } else if (key === 'Up' || key === 'ArrowUp'){
+                upPressed = true;
+            } 
+
+            // pause
+            if ((key === 'Enter' || key === 'p' || key === 'P') && !inPauseBoucle) {
+
+                //game on to pause
+                if (dxPause == 0 && dyPause == 0) {
+                    //console.log('pause');
+                    dxPause = dx;
+                    dyPause = dy;
+                    dx = 0;
+                    dy = 0;
+                    $hit.textContent = 'PAUSE';
+                    inPause = true;
+                } else {
+                    //console.log('go');
+                    dx = dxPause;
+                    dy = dyPause;
+                    dxPause = 0;
+                    dyPause = 0;
+                    $hit.textContent = 'GO';
+                    inPause = false;
+                }
+                inPauseBoucle = true;
+            }
+
+            // shot
+            if ((key === 'x' || key === 'X') && !pressedShot){
+                if (shots > 0) {
+                    shots -= 1;
+                    $shotsQS.textContent = '3 continue hits ===> 1 shot [X] You have: ' + shots + ' - - - FIRE!!!!!!';
+                    console.log('FIRE - - - - - -');
+                    pressedShot = true;
+                    fire = true;
+                    drawShot();
+                    
+                }
+            }
+
+            // exploit
+            if ((key === 'd' || key === 'D') && !pressedExploit){
+                if (exploits > 0) {
+                    exploits -= 1;
+                    $exploitsQS.textContent = '5 continue hits ===> 1 exploit [D] You have: ' + exploits + ' - - - BOOM )))))))))))))))';
+                    ballRadius = 100;
+                    console.log('wwwwww '+ pressedExploit);
+                    
+                }
+                pressedExploit = true;
+                //pressedExploitBoucle = true;
+            }            
+        }
+
+        function keyUpHandler(event) {
+            const { key } = event;
+            if (key === 'Right' || key === 'ArrowRight') {
+                rightPressed = false;
+            } else if (key === 'Left' || key === 'ArrowLeft'){
+                leftPressed = false;
+            }else if (key === 'Down' || key === 'ArrowDown'){
+                downPressed = false;
+            }else if (key === 'Up' || key === 'ArrowUp'){
+                upPressed = false;
+            }
+
+            if (key === 'Enter' || key === 'p' || key === 'P'){
+                inPauseBoucle = false;
+            }
+
+            if ((key === 'x' || key === 'X')){
+                pressedShot = false;
+            }
+
+            if ((key === 'd' || key === 'D')){
+                pressedExploit = false;
+                ballRadius = 2;
+            }
+
+            
+        }
+
+    }
+
+    // update ghz screen
+    function draw() {
+        // todo draws and collisions in a video game
+        cleanCanvas();
+
+        initEvent();
+
+        // draw elements
+        drawBall();
+        drawPaddle();
+        drawBricks();
+        drawShot();
+
+        drawScore();
+
+        // collision and moves
+        collisionDetection();
+        ballMovement();
+        paddleMovement();
+        shotMovement();
+
+        // attacks
+        //drawBlast();
+
+        window.requestAnimationFrame(draw);
+    };
+
+    draw();
+</script>
+</body>
