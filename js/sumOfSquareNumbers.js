@@ -29,6 +29,9 @@ let secondSquareForm = 0;
 var judgeSquareSum = function(c) {
     // if the number c is a perfect square, return true
     if (Number.isInteger(Math.sqrt(c))) {
+        firstSquareForm = Math.sqrt(c);
+        secondSquareForm = 0;
+        console.log('out: 1');
         return true;
     } else {
         /**
@@ -43,25 +46,27 @@ var judgeSquareSum = function(c) {
 
         let newFirstSquare = firstSquare;
 
-        //console.log(`FS: ${firstSquare}, SS: ${secondSquare}`);
+        /* if the remainder of the first square to the number C is 
+        a perfect square, then we have already found the 2 perfect 
+        squares that added together give C.
+        */
         if (Number.isInteger(Math.sqrt(secondSquare))) {
-            //console.log(`FS: ${firstSquare}, SS: ${secondSquare}`);
+            console.log(`FS: ${firstSquare}, SS: ${secondSquare}`);
             firstSquareForm = firstSquare;
-            secondSquareForm = secondSquare;
+            secondSquareForm = Math.sqrt(secondSquare);
             return true;
         } else {
             for (let square = firstSquare; square >= 0; square--) {
                 // start by subtracting 1 from the square root of C to find 
                 newFirstSquare -= 1;
                 const newSecondSquare = Math.sqrt(c - (newFirstSquare * newFirstSquare));
-                //console.log(`FS: ${newFirstSquare}, SS: ${newSecondSquare}`);
 
                 // verify if the result is a square root without decimals.
                 if (Number.isInteger(newSecondSquare)) {
-                    firstSquareForm = firstSquare;
-                    secondSquareForm = secondSquare;
+                    console.log(`FS: ${newFirstSquare}, SS: ${newSecondSquare}`);
+                    firstSquareForm = newFirstSquare;
+                    secondSquareForm = newSecondSquare;
             
-                    //console.log(`FS: ${newFirstSquare}, SS: ${newSecondSquare}`);
                     return true;
                 };
             };
@@ -77,5 +82,30 @@ const solve = judgeSquareSum(c);
 console.log(solve);
 */
 
+// test
+//module.exports = judgeSquareSum;
 
-module.exports = judgeSquareSum;
+const form = document.querySelector('#form-data');
+form.addEventListener('submit', e => {
+    // don't send form native
+    e.preventDefault();
+});
+
+function squareNumbersForm() {
+    let numberForm = parseInt(document.querySelector('#your-number').value);
+    let isSolved = document.querySelector('#isSolved');
+    let firstAnswerForm = document.querySelector('#firstAnswer');
+    let secondAnswerForm = document.querySelector('#secondAnswer');
+    
+    const answer = judgeSquareSum(numberForm);
+    isSolved.value = answer;
+    if (answer) {
+        firstAnswerForm.value = firstSquareForm;
+        secondAnswerForm.value = secondSquareForm;
+        
+    } else {
+        firstAnswerForm.value = 'There is not an answer.';
+        secondAnswerForm.value = 'There is not an answer.';
+        
+    }
+}

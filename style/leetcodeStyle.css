@@ -32,6 +32,10 @@ body {
     text-align: left;
   }
 
+  h3 {
+    text-align: left;
+  }
+
   .description {
     text-align: left;
     font-size: x-large;
@@ -139,39 +143,39 @@ body {
 
 /* 13 */
 .btn-13 {
-    background-color: #89d8d3;
+  background-color: #89d8d3;
   background-image: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);
-    border: none;
-    z-index: 1;
-  }
-  .btn-13:after {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    border-radius: 5px;
-     background-color: #4dccc6;
+  border: none;
+  z-index: 1;
+}
+.btn-13:after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  border-radius: 5px;
+  background-color: #4dccc6;
   background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%);
-    box-shadow:
-     -7px -7px 20px 0px #fff9,
-     -4px -4px 5px 0px #fff9,
-     7px 7px 20px 0px #0002,
-     4px 4px 5px 0px #0001;
-    transition: all 0.3s ease;
-  }
-  .btn-13:hover {
-    color: #fff;
-  }
-  .btn-13:hover:after {
-    top: 0;
-    height: 100%;
-  }
-  .btn-13:active {
-    top: 2px;
-  }
+  box-shadow:
+    -7px -7px 20px 0px #fff9,
+    -4px -4px 5px 0px #fff9,
+    7px 7px 20px 0px #0002,
+    4px 4px 5px 0px #0001;
+  transition: all 0.3s ease;
+}
+.btn-13:hover {
+  color: #fff;
+}
+.btn-13:hover:after {
+  top: 0;
+  height: 100%;
+}
+.btn-13:active {
+  top: 2px;
+}
   
 
 
@@ -179,7 +183,7 @@ body {
 /* 14 edit color */
 .btn-14 {
   background-color: #bb89d8;
-background-image: linear-gradient(315deg, #cf89d8 0%, #c555cf 74%);
+  background-image: linear-gradient(315deg, #cf89d8 0%, #c555cf 74%);
   border: none;
   z-index: 1;
 }
@@ -192,8 +196,8 @@ background-image: linear-gradient(315deg, #cf89d8 0%, #c555cf 74%);
   left: 0;
   z-index: -1;
   border-radius: 5px;
-   background-color: #4dccc6;
-background-image: linear-gradient(315deg, #cc4dcc 0%, #db96e4 74%);
+  background-color: #4dccc6;
+  background-image: linear-gradient(315deg, #cc4dcc 0%, #db96e4 74%);
   box-shadow:
    -7px -7px 20px 0px #fff9,
    -4px -4px 5px 0px #fff9,
@@ -224,55 +228,76 @@ background-image: linear-gradient(315deg, #cc4dcc 0%, #db96e4 74%);
 
 
   
-  input:disabled {
-    background-color: #f2f2f2;
-  }
-  
+input:disabled {
+  background-color: #f2f2f2;
+}
+
 article {
   padding-bottom: 3rem;  
 }
 
-  .solution {
-    display: flex;
+.solution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  padding: 10px;
+}
+
+.performance--solution {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1000px) {
+  .performance--solution{
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 40px;
-    padding: 10px;
   }
-  
-  .img--solution {
-    width: 70%;
-    border-radius: 15px;
-    margin-bottom: 3rem;
-  }
+}
+
+.img--performance {
+  max-width: 500px;
+  border-radius: 15px;
+  margin-bottom: 3rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.img--solution {
+  width: 70%;
+  border-radius: 15px;
+  margin-bottom: 3rem;
+}
 
 
-  .carousel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    height: 100%;
-    width: 70%;
-    overflow: hidden;
-  }
+.carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   
-  
-  .buttons-container {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  
-  .image-container {
-    position: relative;
-    display: inline-block;
-    transform: translateX(0);
-    transition: transform 0.5s ease-in-out;
-  }
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  height: 100%;
+  width: 70%;
+  overflow: hidden;
+}
+
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.image-container {
+  position: relative;
+  display: inline-block;
+  transform: translateX(0);
+  transition: transform 0.5s ease-in-out;
+}
 
 .solution--carousel {
   

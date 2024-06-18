@@ -11,21 +11,21 @@
 <body>
     <header>
         <h1>Sum of square numbers</h1>
-        <h2>Given a non-negative integer c, decide whether there're two integers a and b such that a^2 + b^2 = c.
- 
-            Example 1:
-            
-            Input: c = 5
-            Output: true
-            Explanation: 1 * 1 + 2 * 2 = 5
-            Example 2:
-            
-            Input: c = 3
-            Output: false
-             
-            Constraints:
-            
-            0 < = c < = 2^31 - 1</h2>
+        <h2>Given a non-negative integer <i>c</i>, decide whether there're two integers <i>a</i> and <i>b</i> such that:<br>
+            <i>a^2 + b^2 = c</i>.<br><br>
+
+            Example 1:<br>
+            Input: c = 5<br>
+            Output: true<br>
+            Explanation: 1 * 1 + 2 * 2 = 5<br><br>
+
+            Example 2:<br>
+            Input: c = 3<br>
+            Output: false<br>
+            Explanation: 1 * 1 + 1 * 1 = 2, 2 * 2 + 0 * 0 = 4<br><br>
+
+            Constraints:<br>
+            0 < = c < = 2^31 - 1<br></h2>
         <a href="https://leetcode.com/problems/sum-of-square-numbers/description/" target="_blank" rel="noopener noreferrer">leetcode.com/problems/sum-of-square-numbers/description/</a>
     
     </header>
@@ -33,19 +33,29 @@
     <section>
         <form id="form-data">
             <label for="your-number">Your number:</label>
-            <input id="your-number" name="your-number" type="number" >
+            <input id="your-number" name="your-number" type="number" min="0">
             <label for="">Solution:</label>
             <input disabled type="text" name="isSolved" id="isSolved">
             <label for="answer">The answer:</label>
-            <input disabled id="firstAnswer" name="firstAnswer" type="number">
-            <input disabled id="secondAnswer" name="secondAnswer" type="number">
+            <input disabled id="firstAnswer" name="firstAnswer" type="text">
+            <input disabled id="secondAnswer" name="secondAnswer" type="text">
             
             <button class="custom-btn btn-13" onclick="squareNumbersForm()">Solution</button>
         </form>
 
         <article>
             <div class="solution">
-                <img class="img--solution" src="https://firebasestorage.googleapis.com/v0/b/platzivideo-gerard.appspot.com/o/js_challenge%2Fsol_string_compression.png?alt=media&token=30fc991b-b957-4456-b21c-cf2e14d5869d" alt="solution" srcset="">
+                <h3>Performance</h3>
+                <div class="performance--solution">
+                    <img class="img--performance" src="https://firebasestorage.googleapis.com/v0/b/platzivideo-gerard.appspot.com/o/js_challenge%2FsumSquareNumbers%2FsumSquare_Speed_90.png?alt=media&token=17d9a794-99e5-4df4-a0fd-0473d59f7041" alt="speed">
+                    <img class="img--performance" src="https://firebasestorage.googleapis.com/v0/b/platzivideo-gerard.appspot.com/o/js_challenge%2FsumSquareNumbers%2FsumSquare_memory.png?alt=media&token=b3f8732d-ee68-42a4-a8a2-a49f940816a4" alt="memory">
+                </div>
+
+                <h3>Code</h3>
+                <img class="img--solution" src="https://firebasestorage.googleapis.com/v0/b/platzivideo-gerard.appspot.com/o/js_challenge%2FsumSquareNumbers%2FsumOfSquareNumbers_code.png?alt=media&token=6daa0ade-04a3-4374-b6dc-92ea4d30efa3" alt="solution" srcset="">
+                <h3>Test</h3>
+                <img class="img--solution" src="https://firebasestorage.googleapis.com/v0/b/platzivideo-gerard.appspot.com/o/js_challenge%2FsumSquareNumbers%2FsumOfSquareNumbers_test.png?alt=media&token=217d669c-1624-4d13-872d-b0df2ad31a88" alt="test" srcset="">
+                
             </div>
         </article>
 
@@ -57,6 +67,6 @@
         <p><a href="https://gerardo-soto.github.io/" target="_blank" rel="noopener noreferrer">Profile: gerardo-soto.github.io</a></p>
     </footer>
 
-    <script type="module" src="./../js/sumOfSquareNumbers.js"></script>
+    <script src="./../js/sumOfSquareNumbers.js"></script>
 </body>
 </html>

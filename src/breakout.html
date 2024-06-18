@@ -9,6 +9,9 @@
     .principal{
         align-items: center;
     }
+    .info {
+        padding-left: 30%;
+    }
     canvas {
         border: 4px solid #DDD;
         border-bottom: transparent;
@@ -18,15 +21,17 @@
     }
 </style>
 <body>
-<h3 class="text">BreakOut</h3>    
+<h1 class="text">BreakOut</h1>
 <canvas></canvas>
-<h2 class="text principal" id="hitTheBall">Hit the ball</h2>
-<h2 class="text" id="hits"></h2>
-<h2 id="shots" class="text">3 continue hits ===> 1 shot     [X]    You have: 10</h2>
-<h2 id="exploits" class="text">5 continue hits ===> 1 exploit  [D]    You have: 10</h2>
-<h2 id="points" class="text">Points: 0</h2>
-<img hidden id="sprite" src="./sprite.png" alt="Sprite BreakOut" />
-<img hidden id="bricks" src="./bricks.png" alt="Sprite BreakOut" />
+<div class="info">
+    <h2 class="text principal" id="hitTheBall">Hit the ball</h2>
+    <h2 class="text" id="hits"></h2>
+    <h2 id="shots" class="text">3 continue hits ===> 1 shot     [X]    You have: 10</h2>
+    <h2 id="exploits" class="text">5 continue hits ===> 1 exploit  [D]    You have: 10</h2>
+    <h2 id="points" class="text">Points: 0</h2>
+</div>
+<img hidden id="sprite" src="https://firebasestorage.googleapis.com/v0/b/platzivideo-gerard.appspot.com/o/breakout_game%2Fsprite.png?alt=media&token=dd10bb96-0bbd-45b3-9d18-1826fc309384" alt="Sprite BreakOut" />
+<img hidden id="bricks" src="https://firebasestorage.googleapis.com/v0/b/platzivideo-gerard.appspot.com/o/breakout_game%2Fbricks.png?alt=media&token=274b6055-f2c2-48bc-8d8d-ac9969ee3552" alt="Sprite BreakOut" />
 
 <script>
     const canvas = document.querySelector('canvas');
@@ -83,6 +88,31 @@
         ctx.closePath();
     };
 
+    function drawPaddle() {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(
+            paddleX,
+            paddleY,
+            paddleWidth,
+            paddleHeight,
+        );
+
+        ctx.drawImage(
+            $sprite,
+            // coords
+            29,
+            174,
+            50,
+            paddleHeight,
+            //position
+            paddleX,
+            paddleY,
+            paddleWidth,
+            paddleHeight,
+        )
+    }
+
+
     function drawShot(){
         ctx.beginPath();
         ctx.arc(shotX, shotY, shotRatio, 0, Math.PI*2);
@@ -137,33 +167,6 @@
     const PADDLE_MAX_SPEED = 5;
     let paddleX = ((canvas.width - paddleWidth) / 2);
     let paddleY = (canvas.height - paddleHeight - 10);
-
-
-
-    function drawPaddle() {
-        ctx.fillStyle = '#09f';
-        ctx.fillRect(
-            paddleX,
-            paddleY,
-            paddleWidth,
-            paddleHeight,
-        );
-
-        ctx.drawImage(
-            $sprite,
-            // coords
-            29,
-            174,
-            50,
-            paddleHeight,
-            //position
-            paddleX,
-            paddleY,
-            paddleWidth,
-            paddleHeight,
-        )
-    }
-
 
     function paddleMovement() {
         if (inPause){
@@ -243,6 +246,8 @@
     function drawScore() {
         
     }
+
+    
     
     function collisionDetection() {
         //console.log(`dx: ${dx}   dy: ${dy}`);
