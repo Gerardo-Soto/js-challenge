@@ -39,46 +39,25 @@ numbers is sorted in ascending order.
  * @return {number}
  */
 var minPatches = function(numbers, n) {
-    let numbersAdded = 0;
-    console.log(numbers);
-    //show all sums
-    let sums = (2 ** numbers.length) - 1;
-    console.log(sums);
-    let bites = 0;//(sums).toString(2);
-    //console.log(bites);
+    // 1 + 1 = 2
+    // 2 + 1 = 3
+    // 4 + 1 = 5    6,7 = 4+2 4+2+1
+    // 8 + 1 = 9
+    // n**2
+    let missing = 1;
+    let patches = 0;
+    let index = 0;
 
-    const theList = new Set();
-
-    for (let index = 1; index <= sums; index++) {
-        let sum = 0;
-        bites = (index).toString(2);
-        bites = bites.padStart(numbers.length,'0')
-        for (let bite = 0; bite < bites.length; bite++) {
-            if (bites[bite] == 1) {
-                if (sum + numbers[bite] > n) continue;
-
-                sum += numbers[bite];
-            };
-        };
-        console.log(`${(bites)} sum: ${sum}`);
-        theList.add(sum);
-
-        
-        //sums -= 1;
+    while (missing <= n) {
+        if (index < numbers.length && numbers[index] <= missing) {
+            missing += numbers[index];
+            index += 1;
+        } else {
+            missing += missing;
+            patches += 1;
+        }
     }
-    console.log(theList, theList.size);
-
-    for (let index = 1; index <= theList.size; index++) {
-        if (!theList.has(index)) {
-            console.log(`theList don't have: ${index}`);
-            theList.add(index);
-            numbersAdded += 1;
-        };
-        
-    }
-    console.log(theList, theList.size);
-
-    return numbersAdded;
+    return patches;
 };
 
 let numbers = [1, 5, 10]

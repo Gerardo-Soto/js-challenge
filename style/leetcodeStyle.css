@@ -107,6 +107,24 @@ body {
     width: 100%;
     box-sizing: border-box;
   }
+
+  .input-medium {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+    width: 60%;
+    box-sizing: border-box;
+  }
+  
+  .input-l90 {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+    width: 90%;
+    box-sizing: border-box;
+  }
   
   .input-small {
     padding: 8px;
@@ -114,6 +132,17 @@ body {
     border: 1px solid #ccc;
     margin-bottom: 12px;
     width: 30%;
+    box-sizing: border-box;
+  }
+
+  .input-very-small {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 15%;
     box-sizing: border-box;
   }
 

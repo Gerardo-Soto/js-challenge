@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="https://firebasestorage.googleapis.com/v0/b/platzivideo-gerard.appspot.com/o/profile%2FJS_Logo.png?alt=media&token=4a75cc58-2ff6-4a78-b56b-7d3eee1b04aa" type="image/x-icon">
+    <link rel="stylesheet" href="./../style/leetcodeStyle.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score JS</title>
+    <style>
+        .content{
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        .main{
+            display: flex;
+            justify-content: center;
+            
+        }
+        .score--cards{
+            display: flex;
+            justify-content: center;
+            padding-left: 80px;
+        }
+        .teamCard {
+            background-color: rgb(231, 197, 4);
+            margin-right: 10px;
+            padding-left: 3px;
+            padding-right: 3px;
+        }
+        .teamCardRed {
+            background-color: crimson;
+        }
+        .score--changes{
+            display: flex;
+            justify-content: center;
+            padding-left: 80px;
+        }
+        .firstTeamChange{
+            display: flex;
+            justify-content: center;
+            padding-right: 50px;
+            
+        }
+        .firstTeamCards{
+            display: flex;
+            justify-content: center;
+            padding-right: 40px;
+            
+        }
+        .secondTeamChange{
+            display: flex;
+            justify-content: center;
+            padding-left: 50px;
+        }
+        .secondTeamCards{
+            display: flex;
+            justify-content: center;
+            padding-left: 50px;
+        }
+        .teamChange{
+            padding-right: 10px;
+        }
+
+        .score{
+            display: flex;
+            justify-content: center;
+            background-color: cadetblue;
+            font-size: 20px;
+            width: 500px;
+        }
+        .score--item{
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        .score--time{
+            
+            width: 55px;
+            background-color: chocolate;
+            margin-right: 10px;
+        }
+        .teamColor{
+            background-color: grey;
+        }
+        .goals{
+            display: flex;
+            justify-content: center;
+            background-color: aliceblue;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        .scoreDiv {
+            background-color: aliceblue;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        .form{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-left: 50px;
+            width: 800px;
+        }
+        .formFirstTeam{
+            display: flex;
+            flex-direction: column;
+        }
+        .formSecondTeam{
+            display: flex;
+            flex-direction: column;
+        }
+        .yellowCardTeam--form{
+            display: flex;
+            flex-direction: row;
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+
+        <h1>Score</h1>
+        <div class="content">
+            <div class="score--cards">
+                <div class="firstTeamCards">
+                    <div class="teamCard">5</div>
+                    <div class="teamCard">4</div>
+                    <div class="teamCard">3</div>
+                    <div class="teamCard">2</div>
+                    <div class="teamCard">1</div>
+                </div>
+                    
+                <div class="secondTeamCards">
+                    <div class="teamCard">1</div>
+                    <div class="teamCard">2</div>
+                    <div class="teamCard">3</div>
+                    <div class="teamCard">4</div>
+                    <div class="teamCard">5</div>
+                </div>
+            </div>
+            <div class="main">
+                <div class="score">
+                    <div class="score--item score--time">00:00</div>
+                    <div class="score--item teamColor">[ ]</div>
+                    <div class="score--item teamName">Real Madrid</div>
+                    <div class="goals">
+                        <div class="score--item teamScore">0</div>
+                        <div class="score--item scoreDiv">-</div>
+                        <div class="score--item teamScore">0</div>
+
+                    </div>
+                    <div class="score--item teamName">B. D.</div>
+                    <div class="score--item teamColor">[ ]</div>
+                </div>
+            </div>
+            <div class="score--changes">
+                <div class="firstTeamChange">
+                    <div class="teamChange">5</div>
+                    <div class="teamChange">4</div>
+                    <div class="teamChange">3</div>
+                    <div class="teamChange">2</div>
+                    <div class="teamChange">1</div>
+                </div>
+                    
+                <div class="secondTeamChange">
+                    <div class="teamChange">1</div>
+                    <div class="teamChange">2</div>
+                    <div class="teamChange">3</div>
+                    <div class="teamChange">4</div>
+                    <div class="teamChange">5</div>
+                </div>
+            </div>
+        </div>
+        <h2>Chose your teams 
+        </h2>
+        
+    </header>
+
+    <section>
+        <form id="form-data">
+            <button class="custom-btn btn-13" onclick="getData()">Update</button>
+            <div class="form">
+                <div class="formFirstTeam">
+                    <label for="numbers">Insert the first team:</label>
+                    <input class="input-l90" id="numbers" name="input-numbers" type="text" placeholder="e.i. Blue">
+                    <label for="firstColor--firstTeam">First color</label>
+                    <input class="input-medium" type="text" />
+                    <label for="secondColor--firstTeam">Second color</label>
+                    <input class="input-medium" type="text" />
+                    <label for="goal">Goals</label>
+                    <div class="score--fisrtTeam">
+                        <button>-</button><span>0</span><button>+</button>
+                    </div>
+                    <label for="yellowCard--secondTeam">Yellow Card</label>
+                    <div class="yellowCardTeam--form">
+                        <span>N. Player:</span>
+                        <input class="input-very-small" type="number" min="0">
+                        <span>Min:</span>
+                        <input class="input-very-small" type="number" min="0" max="150">
+                    </div>
+                </div>
+                <div class="formSecondTeam">
+                    <label for="target">Insert the second team:</label>
+                    <input class="input-l90" id="target" name="input-target" type="text" placeholder="e.i. Red">
+                    <label for="firstColor--secondTeam">First color</label>
+                    <input class="input-medium" type="text" />
+                    <label for="secondColor--secondTeam">Second color</label>
+                    <input class="input-medium" type="text" />
+                    <label for="goal">Goals</label>
+                    <div class="score--secondTeam">
+                        <button>-</button><span>0</span><button>+</button>
+                    </div>
+                    <label for="yellowCard--secondTeam">Yellow Card</label>
+                    <div class="yellowCardTeam--form">
+                        <span>N. Player:</span>
+                        <input class="input-very-small" type="number" min="0">
+                        <span>Min:</span>
+                        <input class="input-very-small" type="number" min="0" max="150">
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </section>
+
+    <footer class="my-footer">
+        <p>email: gerardo.8.soto@gmail.com</p>
+        <p><a href="https://github.com/Gerardo-Soto" target="_blank" rel="noopener noreferrer">My github.com/Gerardo-Soto</a></p>
+        <p><a href="https://gerardo-soto.github.io/" target="_blank" rel="noopener noreferrer">Profile: gerardo-soto.github.io</a></p>
+    </footer>
+
+    <script src="./../js/score.js"></script>
+</body>
+</html>
