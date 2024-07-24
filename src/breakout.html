@@ -57,13 +57,13 @@
     let y = canvas.height*0.9;
     
     // speedball
-    let dx = 2;
-    let dy = -2;
+    let dx = 1;// og: 2
+    let dy = -1;// og: 2
     let dxPause = 0;
     let dyPause = 0;
     let inPause = false;
     let inPauseBoucle = false;
-    const MAX_SPEED = 3;
+    const MAX_SPEED = 1;// og: 3
 
     // powers
     let shots = 10;
@@ -131,6 +131,33 @@
         
     }
 
+    let enemyBallX = 0;
+    let enemyBallY = 0;
+    let enemyBallRadius = 10;// 0, test> 10
+    let enemyActive = false;
+    let enemyDestroyed = false;
+
+    function drawEnemyBlock() {
+        ctx.beginPath();
+        ctx.arc(enemyBallX, enemyBallY, enemyBallRadius, 0, Math.PI*2);
+        ctx.fillStyle = '111';
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    function getEnemyBlockInfo(currentBrickCenterX, currentBrickCenterY) {
+        enemyBallX = currentBrickCenterX;
+        enemyBallY = currentBrickCenterY;
+        
+    }
+
+    function increaseEnemySize() {
+        if (!inPause) {
+            enemyBallRadius += 0.05;
+            
+        }
+    }
+
     function drawShot() {
         ctx.beginPath()
         
@@ -195,6 +222,7 @@
     const brickOffsetTop = 30;
     const brickOffsetLeft = 30;
     const bricks = [];
+    const actionEvents = ['a', 'w', 's', 'z'];
     const BRICK_STATUS = {
         ACTIVE: 1,
         DESTROYED: 0
@@ -216,6 +244,7 @@
                 y: brickY,
                 status: BRICK_STATUS.ACTIVE,
                 color: randomBrick,
+                actionEvent: actionEvents[Math.floor(Math.random() * actionEvents.length)],
             } 
         }
     }
@@ -305,8 +334,8 @@
                         $hit.textContent = 'PERFECT hit!'
                         points += 100;
                         // less dy = less speed
-                        if (Math.abs(dx) > 5){
-                            dy *= 0.95;
+                        if (Math.abs(dy) > 5){
+                            dy *= 1.15;
                         } else {
                             dy *= 0.90;
                         }
@@ -397,7 +426,7 @@
                 const currentBrick = bricks[column][row];
 
                 if(currentBrick.status === BRICK_STATUS.DESTROYED) continue;
-
+                
                 // exploit calculate
                 if (pressedExploit && exploits > 0) {
                     let currentBrickCenterX = ((currentBrick.x + (brickWidth / 2)));
@@ -418,22 +447,69 @@
                     }
                 }
 
-                const isBallSameXAsBrick = x > currentBrick.x && x < currentBrick.x + brickWidth;
-                const isBallSameYAsBrick = y > currentBrick.y && y < currentBrick.y + brickHeight;
 
-                // there is a collision
+                // there is a collision with a brick
+                // ball position
+                const xAuxFloor = Math.floor(x);
+                const yAuxFloor = Math.floor(y);
+                // is the ball in the brick
+                const isBallSameXAsBrick = xAuxFloor > currentBrick.x && xAuxFloor < currentBrick.x + brickWidth;
+                const isBallSameYAsBrick = yAuxFloor > currentBrick.y && yAuxFloor < currentBrick.y + brickHeight;
+
                 if (isBallSameXAsBrick && isBallSameYAsBrick) {
                     // what kind of collision, horizontal or vertical
-                    if (Math.floor( x) ==  currentBrick.x || Math.floor( x) == (currentBrick.x + brickWidth)) {
-                        console.log('collision vertical');
-                        console.log(`x: ${Math.floor(x)} , currentBrick = ${currentBrick.x}`);
-                        // vertical collision
-                        dx = -dx; 
+                    console.log(`Col: ball x: ${xAuxFloor}, y: ${yAuxFloor} , cur.Brick | line= ${currentBrick.x} & ${currentBrick.x + brickWidth}  
+                    _= ${currentBrick.y} & ${currentBrick.y + brickHeight}`);
+
+                    //check kind of collision
+                    const topDistance = Math.abs(xAuxFloor - currentBrick.x);// ---
+                    const downDistance = Math.abs(xAuxFloor - currentBrick.x + brickHeight);//  ___
+                    const leftDistance = Math.abs(yAuxFloor - currentBrick.y);// |  ---
+                    const rightDistance = Math.abs(yAuxFloor - currentBrick.y + brickWidth);// --- |
+
+                    // 
+                    console.log(topDistance, downDistance, leftDistance, rightDistance);
+                    const minDistance = Math.min(topDistance, downDistance, leftDistance, rightDistance);
+
+                    // 
+                    let minVariable;
+                    if (minDistance === topDistance) {
+                        minVariable = 'left';// good
+                    } else if (minDistance === downDistance) {
+                        minVariable = 'top';
+                    } else if (minDistance === leftDistance) {
+                        minVariable = 'down';// good
+                    } else if (minDistance === rightDistance) {
+                        minVariable = 'right';
+                    }
+
+                    console.log(minVariable);
+                
+                    if (minVariable === 'top') {
+                        dy = -1 * Math.abs(dy);
+                    } else if (minVariable === 'down') {
+                        dy = Math.abs(dy);
+                    } else if (minVariable === 'left') {
+                        dx = -1 * Math.abs(dy);
                     } else {
-                        console.log('collision horizontal');
-                        console.log(`x: ${Math.floor(x)} , currentBrick = ${currentBrick.x}`);
-                        // horizontal collision
-                        dy = -dy;
+                        dx = Math.abs(dx);
+                    }
+
+                    //continue;
+                    // vertical collision ->  .|
+                    //dx = -dx;
+
+                    // horizontal collision ->  _._
+                    //dy = -dy;
+                
+
+
+                    // time enemy
+                    if (enemyActive == false && enemyDestroyed == true){
+                        // crate a enemy
+                        let brickToDestroy = currentBrick;
+                        getEnemyBlockInfo(brickToDestroy.x + (brickWidth / 2), brickToDestroy.y + (brickHeight / 2), true);
+                        
                     }
                     // more speed
                     if ((Math.abs(dx) < MAX_SPEED) && (Math.abs(dy) < MAX_SPEED)) {
@@ -441,11 +517,16 @@
                         dy *= 1.02;
                     }
                     
-                    currentBrick.status = BRICK_STATUS.DESTROYED;    
-                    countHits += 1;
-                    hits.textContent = 'Continuous hits: ' + countHits;
+                    if (!enemyActive) {
+                        currentBrick.status = BRICK_STATUS.DESTROYED;
 
-                    TOTAL_BRICKS -= 1;
+                    }
+                    //console.log(currentBrick);
+                    
+                    enemyDestroyed = false;
+                    enemyActive = true;
+                    
+                    
                 }
                 
             }
@@ -471,6 +552,7 @@
             //
             dy = 0;
             dx = 0;
+            y = canvas.height * 0.99;
             //document.location.reload();
             //console.log(`dx: ${dx}, dy: ${dy}`);
         }
@@ -543,6 +625,8 @@
                     dy = 0;
                     $hit.textContent = 'PAUSE';
                     inPause = true;
+
+                    
                 } else {
                     //console.log('go');
                     dx = dxPause;
@@ -580,6 +664,19 @@
                 pressedExploit = true;
                 //pressedExploitBoucle = true;
             }            
+        
+            if ((key === 'a' || key === 'A')){
+                enemyActive = false;
+                enemyBallRadius = 1;
+                enemyDestroyed = true;
+
+                countHits += 1;
+                hits.textContent = 'Continuous hits: ' + countHits;
+
+                TOTAL_BRICKS -= 1;
+
+            }
+        
         }
 
         function keyUpHandler(event) {
@@ -633,7 +730,15 @@
         paddleMovement();
         shotMovement();
 
+        
+        if (enemyActive) {
+            drawEnemyBlock();
+        }
+
         // attacks
+        if (enemyActive) {
+            increaseEnemySize();
+        }
         //drawBlast();
 
         window.requestAnimationFrame(draw);
