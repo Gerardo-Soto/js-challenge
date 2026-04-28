@@ -20,7 +20,7 @@ function CalibrationValues(coors) {
                     firstCoord = number;
                     secondCoord = number;
                 } else {
-                    //console.log(`second`);
+                    //console.log(`second`);3 
                     
                     secondCoord = number;
                 }
